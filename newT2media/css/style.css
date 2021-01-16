@@ -1,0 +1,182 @@
+.container {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+header > section{
+    height: 100px;
+    width: 100%;
+    background-color: orange;
+    margin-left: 10px;
+    
+}
+.y-color {
+    width: 300px;
+    margin-left: 0;
+    background: rgb(240, 240, 14);
+}
+
+div > section {
+    width: 100%;
+    height: 50px;
+    background: rgb(204, 67, 90);
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.content > article {
+    width: 100%;
+    height: 300px;
+    background: rgb(53, 196, 196);
+}
+
+.p-end > article {
+     width: 394px;
+     height: 300px;
+     background-color: rgb(53, 196, 196);
+     margin-left: 11px;
+     margin-top: 10px;
+}
+
+p {
+    width: 394px;
+    height: 300px;
+    margin-top: 10px;
+    text-align: justify;
+}
+
+
+
+.d-flex {
+    display: flex;
+}
+
+.flex-d-column {
+    flex-direction: column;
+}
+.flex-d-row {
+    flex-direction: row;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+@media screen and (min-width: 320px) {
+
+    header {
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+    
+    header > section{
+        height: 100px;
+        width: 100%;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    .y-color {
+        width: 100%;
+        margin-left: 0;
+    }
+    .content > article {
+        width: 100%;
+        height: 200px;
+    }
+    .p-end {
+        flex-direction: column-reverse;
+        flex-wrap: wrap;
+    }
+    
+    .p-end > article {
+        width: 100%;
+        height: 100px;
+        margin-left: 0;
+        margin-top: 0;
+   }
+   
+   p {
+       width: 100%;
+       height: 100px;
+       margin-top: 10px;
+       text-align: justify;
+   }
+   
+    
+}
+@media screen and (min-width: 768px) {
+
+    header {
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+    
+    header > section{
+        height: 100px;
+        width: 100%;
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+    .y-color {
+        width: 300px;
+        margin-left: 10;
+    }
+    .content > article {
+        width: 100%;
+        height: 200px;
+    }
+    .p-end {
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+    
+    .p-end > article {
+        width: 392px;
+        height: 300px;
+        margin-left: 11px;
+        margin-top: 10px;
+   }
+   
+   p {
+       width: 392px;
+       height: 100px;
+       margin-top: 10px;
+   }
+   
+   footer {
+    width: 100%;
+    height: 150px;
+    margin-top: 10px;
+    background:  rgb(53, 196, 196);
+   }
+    
+}
+@media screen and (min-width: 1200px) {
+     
+    header > section{
+        height: 100px;
+        width: 100%;
+        background-color: orange;
+        margin-left: 10px;
+        
+    }
+    
+
+    .content > article {
+        height: 300px;
+    }
+
+    
+    .p-end > article {
+        width: 394px;
+   }
+   
+
+   p {
+       width: 394px;
+       height: 300px;
+   }
+   footer {
+   display: none;
+   }
+
+}

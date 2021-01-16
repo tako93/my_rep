@@ -1,0 +1,149 @@
+.container {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+header > section{
+    height: 150px;
+    width: 100%;
+    background-color: orange;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    
+}
+.b-color {
+    width: 300px;
+    margin-left: 0;
+    background: rgb(17, 214, 221);
+}
+
+
+.content > article {
+    width: 100%;
+    height: 300px;
+    background: rgb(230, 112, 58);
+    margin-bottom: 10px;
+}
+
+ .last-div > article {
+     width: 380px;
+     height: 500px;
+     background-color: yellow;
+     margin-left: 11px;
+     margin-top: 10px;
+}
+
+
+
+
+
+.d-flex {
+    display: flex;
+}
+
+.flex-d-column {
+    flex-direction: column;
+}
+.flex-d-row {
+    flex-direction: row;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+@media screen and (min-width: 320px) {
+
+    .content > article {
+        width: 100%;
+        height: 400px;
+        margin-bottom: 0;
+    }
+    .last-div {
+        flex-direction: column-reverse;
+        flex-wrap: wrap;
+    }
+    
+    .last-div > article {
+        width: 100%;
+        height: 200px;
+        margin-left: 0;
+        margin-top: 10px;
+   }
+   
+    
+}
+@media screen and (min-width: 768px) {
+
+    header {
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+    
+    header > section{
+        height: 150px;
+        width: 100%;
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+    .b-color {
+        width: 300px;
+        margin-left: 10;
+    }
+    .content > article {
+        width: 100%;
+        height: 300px;
+    }
+    .last-div{
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+    
+    .last-div > article {
+        width: 392px;
+        height: 300px;
+        margin-left: 10px;
+        margin-top: 10px;
+   }
+
+   .last-div article:first-child {
+    margin-left: 0;
+    /* margin-top: 10px; */
+}
+   
+   
+  footer {
+      width: 100%;
+      height: 100px;
+      background: rgb(245, 182, 211);
+      margin-top: 10px;
+  }
+    
+}
+@media screen and (min-width: 1200px) {
+     
+    header > section{
+        height: 150px;
+        width: 100%;
+        background-color: orange;
+        margin-left: 10px;
+        
+    }
+    
+
+    .content > article {
+        height: 300px;
+    }
+
+    
+    .last-div > article {
+        width: 394px;
+   }
+   
+
+   footer {
+       display: none;
+   }
+
+
+}

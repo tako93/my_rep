@@ -1,0 +1,266 @@
+html {
+  scroll-behavior: smooth;
+}
+
+/* body {
+    background: #011c2ee0;
+} */
+
+.rectangle_1 {
+  position: absolute;
+  max-width: 100%;
+  max-height: 300px;
+  left: 0px;
+  top: -176px;
+  border-radius: 72px;
+}
+
+.rectangle_1 img {
+  max-height: 700px;
+  border-radius: 30px;
+  width: 70%;
+  opacity: 0.9;
+  margin-top: 200px;
+  margin-left: 200px;
+}
+
+.poligon {
+  position: absolute;
+  min-width: 100%;
+  max-height: 300px;
+  left: -756px;
+  top: 80px;
+  background: rgba(126, 81, 153, 0.55);
+  border-radius: 247px;
+}
+.poligon_1 {
+  width: 100%;
+  max-height: 300px;
+}
+
+.pdtxt h1 {
+  position: absolute;
+  max-width: 523px;
+  max-height: 309px;
+  left: 80px;
+  top: 120px;
+  z-index: 1;
+  font-family: Rufina;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 70px;
+  line-height: 100px;
+
+  color: #000000;
+}
+
+.dot {
+  position: fixed;
+  z-index: 1;
+  width: 50px;
+  height: 50px;
+  right: 20px;
+  /* top: -200px; */
+}
+
+.menu {
+  position: fixed;
+  width: 150px;
+  height: 50px;
+  border-radius: 247px;
+  right: -50px;
+  z-index: 1;
+  background: rgba(126, 81, 153, 0.55);
+  cursor: pointer;
+}
+.btnd {
+  width: 250px;
+  height: 50px;
+}
+
+.drmenu {
+  background-color: black;
+  width: 523px;
+  background: rgba(126, 81, 153);
+}
+
+.wipd {
+  position: relative;
+  box-sizing: border-box;
+  font-family: Rufina;
+  font-size: 18px;
+}
+
+.article_1 {
+  max-height: 700px;
+  width: 80%;
+  border: 1px solid rgba(0, 0, 0, 0.342);
+  padding: 20px;
+  padding-bottom: 40px;
+  background: rgba(255, 255, 255, 0.767);
+  box-shadow: 28px 28px 56px #19303d60, -28px -28px 56px #30383860;
+  margin-top: 500px;
+  border-radius: 10px;
+  overflow: scroll;
+}
+
+.article_2 {
+  max-height: 700px;
+  width: 80%;
+  border: 1px solid rgba(0, 0, 0, 0.342);
+  padding: 20px;
+  padding-bottom: 40px;
+  background: rgba(255, 255, 255, 0.767);
+  box-shadow: 28px 28px 56px #26546e, -28px -28px 56px #75d1e4;
+  border-radius: 10px;
+  overflow: scroll;
+}
+
+.article_3 {
+  max-height: 700px;
+  width: 80%;
+  border: 1px solid rgba(0, 0, 0, 0.342);
+  padding: 20px;
+  padding-bottom: 40px;
+  background: rgba(255, 255, 255, 0.767);
+  box-shadow: 28px 28px 56px #26546e, -28px -28px 56px #75d1e4;
+  border-radius: 10px;
+  overflow: scroll;
+}
+
+.ICD10more {
+  display: none;
+}
+.DSM-5showmore {
+  display: none;
+}
+
+.A {
+  display: none;
+}
+
+.B {
+  display: none;
+}
+.C {
+  display: none;
+}
+
+.menucontainer {
+  border: 2px solid black;
+}
+.nav {
+  z-index: 3;
+  right: 0;
+  position: fixed;
+  border-radius: 20px;
+  background: #75d1e4;
+}
+
+.ulnav {
+  background: #75d1e4;
+  border-radius: 20px;
+}
+
+.navul li {
+  float: left;
+  color: #75d1e4;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  list-style: none;
+}
+
+.navul a {
+  float: left;
+  color: #000000;
+  text-align: center;
+
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navul li:hover {
+  background-color: rgba(127, 81, 153, 0.514);
+  box-shadow: 28px 28px 56px #26546e;
+  border-radius: 72px;
+}
+
+.article1 {
+  max-height: 700px;
+  width: 80%;
+  border: 1px solid rgba(0, 0, 0, 0.342);
+  padding: 20px;
+  padding-bottom: 40px;
+  background: rgba(255, 255, 255, 0.767);
+  box-shadow: 28px 28px 56px #19303d60, -28px -28px 56px #30383860;
+  margin-top: 20px;
+  border-radius: 10px;
+  overflow: scroll;
+}
+
+.more {
+  width: 50%;
+  height: 500px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.342);
+  padding: 20px;
+  padding-bottom: 40px;
+  background: rgba(255, 255, 255, 0.767);
+  box-shadow: 28px 28px 56px #19303d60, -28px -28px 56px #30383860;
+
+  border-radius: 10px;
+  margin: 20px;
+  margin-top: 100px;
+}
+
+.more img {
+  width: 100%;
+  object-fit: cover;
+  height: 73%;
+}
+
+.more:hover {
+  box-shadow: 28px 28px 56px #26546e, -28px -28px 56px #75d1e4;
+}
+
+.disorder-title {
+  margin-left: 45px;
+}
+
+.Antisocial-image {
+  width: 100%;
+  object-fit: cover;
+  height: 73%;
+}
+
+a {
+  text-decoration: none;
+  color: #4499aa;
+}
+
+disorder-title:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+
+.enable {
+  display: block;
+}
+
+.disable {
+  display: none;
+}
+
+
+.wipd {
+  position: relative;
+  box-sizing: border-box;
+  font-family: Rufina;
+  font-size: 18px;
+  display: block;
+}

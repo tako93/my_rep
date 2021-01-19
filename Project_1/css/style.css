@@ -102,6 +102,7 @@ html {
   margin-top: 500px;
   border-radius: 10px;
   overflow: scroll;
+  
 }
 
 .article_2 {
@@ -114,7 +115,10 @@ html {
   box-shadow: 28px 28px 56px #26546e, -28px -28px 56px #75d1e4;
   border-radius: 10px;
   overflow: scroll;
+  
 }
+ 
+
 
 .article_3 {
   max-height: 700px;

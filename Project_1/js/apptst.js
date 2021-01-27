@@ -99,40 +99,50 @@ showBtnForC.addEventListener('click', showC);
 const btnResult = document.querySelector('.btnResult');
 const testResultText = document.querySelector('.r');
 const btnClear = document.querySelector('.btnClear');
-const pagination = document.getElementById('pagination');
+let pagination = document.querySelector('.pagination');
 let hidedsymplistcontainer = document.querySelector('.hidedsymplistcontainer');
-let symplistcontainer = document.querySelector('.symplistcontainer');
+let symplistcontainer = document.querySelector('.firstSymp');
+const prevSymp = document.getElementById('prevSymptom');
+const nextSymp = document.getElementById('nextSymptom');
+let symnum = document.querySelector('.symnum');
 
 
-let pageNumber = 1;
+let pageNumber = 0;
 let rows = 1;
 
 
 pagination.addEventListener('click', ({ target }) => {
     const { pageAction } = target.dataset;
-    let symnum = document.querySelector('.symnum');
-    DisplaySymptoms(symptomList, hidedsymplistcontainer, rows, pageNumber);
+    // SetupPagination(symptomList, symnum, rows);
+    // PaginationButton(pageNumber, symptomList);
     console.log(pageAction);
     if (pageAction === 'nextPage') {
-         if (pageNumber < 7) {
+        if (pageNumber < 7) {
             pageNumber += 1;
+           DisplaySymptoms(symptomList, hidedsymplistcontainer, rows, pageNumber); 
         } else if (pageNumber === 7) {
-            btnResult.classList.remove('disable');
-        };
-        symnum.textContent = `${pageNumber} of 6`
+            btnResult.classList.remove('disable'); 
+            DisplaySymptoms(symptomList, hidedsymplistcontainer, rows, pageNumber); 
+         }  //else if (pageNumber === 1) {
+        //       symplistcontainer.classList.remove('disable');
+        // };
+        symnum.textContent = `${pageNumber} of 7`
+        nextSymp.textContent = `${pageNumber} of 7`
     } else if (pageAction === 'prevPage') {
         if (pageNumber > 0) {
             pageNumber -= 1;
+            DisplaySymptoms(symptomList, hidedsymplistcontainer, rows, pageNumber); 
         } else if (pageNumber > 7) {
             btnResult.classList.add('disable');
         };
     };
-     symnum.textContent = `${pageNumber} of 6`
+    symnum.textContent = `${pageNumber} of 7`
+    nextSymp.textContent = `${pageNumber} of 7`
 });
 
 
-
-const symptomList = ["tendency to bear grudges persistently (i.e.refusal to forgive insults and injuries or slights)",
+//სიმპტომების მასივი რომლის საფუძველზე ეწყობა HTML ელემენტები
+const symptomList = ["excessive sensitivity to setbacks and rebuffs;","tendency to bear grudges persistently (i.e.refusal to forgive insults and injuries or slights)",
      "suspiciousness and a pervasive tendency to distort experience by misconstruing the neutral or friendly actions of others as hostile or contemptuous;",
      "a combative and tenacious sense of self-righteousness out of keeping with the actual situation;", "recurrent suspicions, without justification, regarding sexualfidelity of spouse or sexual partner;", "tendency to experience excessive self-aggrandizing, manifest in a persistent self-referential attitude;", "preoccupation with unsubstantiated 'conspiratorial' explanations of events both immediate to the patient and in the world at large."];
 
@@ -152,12 +162,11 @@ function DisplaySymptoms(List, wrapper, rows_per_page, page) {
         list_element.classList.add('form-check');
         list_element.classList.add('form-switch');
         
-        hidedsymplistcontainer.appendChild(list_element)
+        hidedsymplistcontainer.appendChild(list_element);
 
         let input = document.createElement('input');
         input.classList.add('form-check-input');
-         input.classList.add('parsym');
-        // input.setAttribute('type = checkbox');
+        input.classList.add('parsym');
         input.type = 'checkbox';
         input.id = 'flexSwitchCheckChecked';
 
@@ -172,13 +181,14 @@ function DisplaySymptoms(List, wrapper, rows_per_page, page) {
 };
 
   
-
+//ტესტის შედეგის გამომყვანი ფუნქცია
 btnResult.addEventListener('click', () => {
   let checkedList = document.querySelectorAll('input[type="checkbox"]:checked'); // ჩექ ინფუთების რიცხვი    
+    prevSymp.classList.add('disable');
+    nextSymp.classList.add('disable');
     const parsymp = document.getElementById('checkSymptoms');
     btnClear.classList.remove('disable');
     btnResult.classList.add('disable');
-    pagination.classList.add('disable');
        if (checkedList.length <= 3) {
            testResultText.textContent = 'Your answers suggest that there is Little or No indication that you are experiencing symptoms common among people with paranoid personality disorder. However, this quiz is no substitute for a proper diagnosis from a health care professional ';
            const testImg = document.getElementById('tstimage');
@@ -198,13 +208,13 @@ btnResult.addEventListener('click', () => {
 //შედეგის გასუფთავება და საწყისი ლეიაუთის დაბრუნება
 btnClear.addEventListener('click', () => {
     const parsym = document.querySelectorAll('.parsym');
-    parsym[0].checked = false; //-----------ინფუთების ანჩექი
-    parsym[1].checked = false;
-    parsym[2].checked = false;
-    parsym[3].checked = false;
-    parsym[4].checked = false;
-    parsym[5].checked = false;
-    parsym[6].checked = false;
+    // parsym[0].checked = false; //-----------ინფუთების ანჩექი
+    // parsym[1].checked = false;
+    // parsym[2].checked = false;
+    // parsym[3].checked = false;
+    // parsym[4].checked = false;
+    // parsym[5].checked = false;
+    // parsym[6].checked = false;
     const parsymp = document.getElementById('checkSymptoms');
     btnClear.classList.add('disable');
     btnResult.classList.remove('disable');
@@ -213,47 +223,10 @@ btnClear.addEventListener('click', () => {
     const testImg = document.getElementById('tstimage');
     testImg.classList.add("disable");
     parsymp.classList.add('wipd');
+    prevSymp.classList.remove('disable');
+    nextSymp.classList.remove('disable');
     const testImg2 = document.getElementById('tstimage2');
     testImg2.classList.add("disable");
 });
 
 
-
-// let newSymptom = document.createElement('div')
-
-//  newSymptom.classList.add('form-check form-switch')
-
-//  const myImage = document.createElement('img')
-//  myImage.src="https://picsum.photos/id/237/500/500";
-//  myImage.alt='Dog photo'
-
-//  const h2 = document.createElement('h2')
-//  h2.textContent = 'My name is Roviel and i love playing and eating.'
-
-//  const p = document.createElement('p')
-//  p.classList.add('moreInfo')
-
-//  p.textContent= 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat.'
-
-
-//  const button = document.createElement('button')
-//  button.classList.add('btn')
-//  button.textContent= 'Click to read  more about me '
-
-//  document.body.appendChild(newDog)
-//  newDog.appendChild(myImage)
-//  newDog.appendChild(h2)
-//  newDog.appendChild(p)
-//  newDog.appendChild(button)
-
-
-      
-
-
-// function Symptom(title, checked = false) {  //1. ჯერ ვქმნით კონსტრუქტორ ფუნქიას
-//     this.title = title;
-//     this.checked = checked;
-//     this.toggleCompleted = function () {
-//         this.checked = !this.checked;
-//     }
-// }

@@ -84,7 +84,7 @@ html {
   background: rgba(126, 81, 153);
 }
 
-.wipd {
+.wipd, .startertext {
   position: relative;
   box-sizing: border-box;
   font-family: Rufina;
@@ -268,3 +268,10 @@ disorder-title:hover {
   font-size: 18px;
   display: block;
 }
+
+.symnum {
+  text-align: center;
+  font-size: 25px;
+  font-family: Rufina;
+  font-weight: bolder;
+} 

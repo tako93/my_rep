@@ -1,100 +1,4 @@
-let showmore = 0; //დამატებითი ცვლადი რომელიც დაფარული ტექსტის გამოჩენაში გვეხმარება. როდესაც ღილაკს ვაჭერთ მისი მნიშვნელობა იცვლება რაც თავის მხრივ ღილაკის მნიშვნელობას ცვლის და ტექსტს აჩენს ან პირიქით
-function show() {
-    if (!showmore) {
-        document.getElementById('showmore').style.display = 'block';
-        document.getElementById('showbtn').innerHTML = 'show less';
-        showmore = 1;
-    } else {
-        document.getElementById('showmore').style.display = 'none';
-        document.getElementById('showbtn').innerHTML = 'show more';
-        showmore = 0;
-    };
-};
-
-const showbtn = document.getElementById('showbtn'); 
-
-showbtn.addEventListener('click', show);
-
-let showmore2 = 0;//დამატებითი ცვლადი რომელიც დაფარული ტექსტის გამოჩენაში გვეხმარება. როდესაც ღილაკს ვაჭერთ მისი მნიშვნელობა იცვლება რაც თავის მხრივ ღილაკის მნიშვნელობას ცვლის და ტექსტს აჩენს ან პირიქით
-function showDSM5() {
-    if (!showmore2) {
-        document.getElementById('DSM-5showmore').style.display = 'block';
-        document.getElementById('DSM-5showbtn').innerHTML = 'show less';
-        showmore2 = 1;
-    } else {
-        document.getElementById('DSM-5showmore').style.display = 'none';
-        document.getElementById('DSM-5showbtn').innerHTML = 'show more';
-        showmore2 = 0;
-    };
-};
-
-const DSM5showbtn = document.getElementById('DSM-5showbtn'); 
-
-DSM5showbtn.addEventListener('click', showDSM5);
-
-
-
-let showmore3 = 0;//დამატებითი ცვლადი რომელიც დაფარული ტექსტის გამოჩენაში გვეხმარება. როდესაც ღილაკს ვაჭერთ მისი მნიშვნელობა იცვლება რაც თავის მხრივ ღილაკის მნიშვნელობას ცვლის და ტექსტს აჩენს ან პირიქით
-
-function showA() {
-    if (!showmore3) {
-        document.getElementById('A').style.display = 'block';
-        document.getElementById('showbtnA').innerHTML = 'show less';
-        showmore3 = 1;
-    } else {
-        document.getElementById('A').style.display = 'none';
-        document.getElementById('showbtnA').innerHTML = 'show more';
-        showmore3 = 0;
-    };
-};
-
-
-const showBtnForA = document.getElementById('showbtnA'); 
-
-showBtnForA.addEventListener('click', showA);
-
-
-let showmore4 = 0;//დამატებითი ცვლადი რომელიც დაფარული ტექსტის გამოჩენაში გვეხმარება. როდესაც ღილაკს ვაჭერთ მისი მნიშვნელობა იცვლება რაც თავის მხრივ ღილაკის მნიშვნელობას ცვლის და ტექსტს აჩენს ან პირიქით
-
-function showB() {
-    if (!showmore4) {
-        document.getElementById('B').style.display = 'block';
-        document.getElementById('showbtnB').innerHTML = 'show less';
-        showmore4 = 1;
-    } else {
-        document.getElementById('B').style.display = 'none';
-        document.getElementById('showbtnB').innerHTML = 'show more';
-        showmore4 = 0;
-    };
-};
-
-const showBtnForB = document.getElementById('showbtnB'); 
-
-showBtnForB.addEventListener('click', showB);
-
-
-
-let showmore5 = 0;//დამატებითი ცვლადი რომელიც დაფარული ტექსტის გამოჩენაში გვეხმარება. როდესაც ღილაკს ვაჭერთ მისი მნიშვნელობა იცვლება რაც თავის მხრივ ღილაკის მნიშვნელობას ცვლის და ტექსტს აჩენს ან პირიქით
-
-function showC() {
-    if (!showmore5) {
-        document.getElementById('C').style.display = 'block';
-        document.getElementById('showbtnC').innerHTML = 'show less';
-        showmore5 = 1;
-    } else {
-        document.getElementById('C').style.display = 'none';
-        document.getElementById('showbtnC').innerHTML = 'show more';
-        showmore5 = 0;
-    };
-};
-
-
-
-const showBtnForC = document.getElementById('showbtnC'); 
-
-showBtnForC.addEventListener('click', showC);
-
-//ჩამოთვლილი სიმპტომებიდან ნებისმიერი სამი ან მეტი სიმპტომისთვის ჩექის გაკეთების შემთხვევაში არის მეტი შანსი რომ პიროვნული აშლილობა აღინიშნება
+//ტესტის ნაწილი: ჩამოთვლილი სიმპტომებიდან ნებისმიერი სამი ან მეტი სიმპტომისთვის ჩექის გაკეთების შემთხვევაში არის მეტი შანსი რომ პიროვნული აშლილობა აღინიშნება
 
 const btnResult = document.querySelector('.btnResult');
 const testResultText = document.querySelector('.r');
@@ -229,4 +133,105 @@ btnClear.addEventListener('click', () => {
     testImg2.classList.add("disable");
 });
 
+
+
+
+//show more ღილაკების ფუნქციები
+
+
+
+let showmore = 0; //if-ის შესაქმნელად გამოყენებული დამატებითი ცვლადი, რომელიც დაფარული ტექსტის გამოჩენაში გვეხმარება. ფუნქციაში მისი მნიშვნელობა იცვლება, რაც თავის მხრივ ღილაკის ტექსტს ცვლის და დაფარულს აჩენს ან პირიქით
+function show() {
+    if (!showmore) {
+        document.getElementById('showmore').style.display = 'block';
+        document.getElementById('showbtn').innerHTML = 'show less';
+        showmore = 1;
+    } else {
+        document.getElementById('showmore').style.display = 'none';
+        document.getElementById('showbtn').innerHTML = 'show more';
+        showmore = 0;
+    };
+};
+
+const showbtn = document.getElementById('showbtn'); 
+
+showbtn.addEventListener('click', show);
+
+let showmore2 = 0;//if-ის შესაქმნელად გამოყენებული დამატებითი ცვლადი, რომელიც დაფარული ტექსტის გამოჩენაში გვეხმარება. ფუნქციაში მისი მნიშვნელობა იცვლება, რაც თავის მხრივ ღილაკის ტექსტს ცვლის და დაფარულს აჩენს ან პირიქით
+function showDSM5() {
+    if (!showmore2) {
+        document.getElementById('DSM-5showmore').style.display = 'block';
+        document.getElementById('DSM-5showbtn').innerHTML = 'show less';
+        showmore2 = 1;
+    } else {
+        document.getElementById('DSM-5showmore').style.display = 'none';
+        document.getElementById('DSM-5showbtn').innerHTML = 'show more';
+        showmore2 = 0;
+    };
+};
+
+const DSM5showbtn = document.getElementById('DSM-5showbtn'); 
+
+DSM5showbtn.addEventListener('click', showDSM5);
+
+
+
+let showmore3 = 0;//if-ის შესაქმნელად გამოყენებული დამატებითი ცვლადი, რომელიც დაფარული ტექსტის გამოჩენაში გვეხმარება. ფუნქციაში მისი მნიშვნელობა იცვლება, რაც თავის მხრივ ღილაკის ტექსტს ცვლის და დაფარულს აჩენს ან პირიქით
+
+function showA() {
+    if (!showmore3) {
+        document.getElementById('A').style.display = 'block';
+        document.getElementById('showbtnA').innerHTML = 'show less';
+        showmore3 = 1;
+    } else {
+        document.getElementById('A').style.display = 'none';
+        document.getElementById('showbtnA').innerHTML = 'show more';
+        showmore3 = 0;
+    };
+};
+
+
+const showBtnForA = document.getElementById('showbtnA'); 
+
+showBtnForA.addEventListener('click', showA);
+
+
+let showmore4 = 0;//if-ის შესაქმნელად გამოყენებული დამატებითი ცვლადი, რომელიც დაფარული ტექსტის გამოჩენაში გვეხმარება. ფუნქციაში მისი მნიშვნელობა იცვლება, რაც თავის მხრივ ღილაკის ტექსტს ცვლის და დაფარულს აჩენს ან პირიქით
+function showB() {
+    if (!showmore4) {
+        document.getElementById('B').style.display = 'block';
+        document.getElementById('showbtnB').innerHTML = 'show less';
+        showmore4 = 1;
+    } else {
+        document.getElementById('B').style.display = 'none';
+        document.getElementById('showbtnB').innerHTML = 'show more';
+        showmore4 = 0;
+    };
+};
+
+const showBtnForB = document.getElementById('showbtnB'); 
+
+showBtnForB.addEventListener('click', showB);
+
+
+
+let showmore5 = 0;//if-ის შესაქმნელად გამოყენებული დამატებითი ცვლადი, რომელიც დაფარული ტექსტის გამოჩენაში გვეხმარება. ფუნქციაში მისი მნიშვნელობა იცვლება, რაც თავის მხრივ ღილაკის ტექსტს ცვლის და დაფარულს აჩენს ან პირიქით
+
+function showC() {
+    if (!showmore5) {
+        document.getElementById('C').style.display = 'block';
+        document.getElementById('showbtnC').innerHTML = 'show less';
+        showmore5 = 1;
+    } else {
+        document.getElementById('C').style.display = 'none';
+        document.getElementById('showbtnC').innerHTML = 'show more';
+        showmore5 = 0;
+    };
+};
+
+
+
+const showBtnForC = document.getElementById('showbtnC'); 
+
+showBtnForC.addEventListener('click', showC);
 

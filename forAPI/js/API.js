@@ -33,7 +33,7 @@ class API {
                 password,
             })
         };
-
+        //ამ ფუნქციაშიცც განვსაზღვრეთ params და options რომ fetchRequest ფუნქციაში(fetch-ის ბილდერ ფუნქციაში) ჩავსვათ
 
         try {
             const result = await this.fetchRequest(params, options) //აქვე ვიძახებთ fetchRequest ფუნქციას და ვაწერთ .then-ებს ისე როგორც fetch-ის წესია 
@@ -52,8 +52,8 @@ class API {
     async listUsers() { // ეს ფუნქცია იღებს ინფოს window.USER_TOKEN_KEY-დან რომელიც დასაწყისში განვსაზღვრეთ. რაც გადმოგვაქვს იმის შესაბამისად ვცვლით params-ს რახან მისამართში ფიგურირებს ის. ოღონდ თუ ამ ნაწილს მივადგებით მომხმარებელი უკვე ავტორიზებული უნდა იყოს. შემდეგ ამ ფუნქციას დაშბოარდ.ჯს-ში ვიყენებთ  
         const userToken = localStorage.getItem(window.USER_TOKEN_KEY);//USER_TOKEN_KEY-ის საფუძველზე ლოკალ სთორიჯიდან ვკითხულობთ ტოკენს
 
-        if (userToken) {//თუ ტოკენი არსებობს რექუესთს ვაკეთებთ
-            const params = {
+        if (userToken) {//თუ ტოკენი არსებობს მხოლოდ იმ შემთხვევაში განვსაზღვრავთ  პარამეტრებს და რექუესთს ვაკეთებთ
+            const params = {  //განვსაზღვრეთ პარამეტრები
                 endpoint: '/users'
             };
             const options = {
@@ -64,7 +64,7 @@ class API {
                 },
 
             };
-            try {
+            try { //გავაკეთეთ რექუესთი
                 const result = await this.fetchRequest(params, options) //აქვე ვიძახებთ fetchRequest ფუნქციას და ვაწერთ .then-ებს ისე როგორც fetch-ის წესია 
                 
                 return result;

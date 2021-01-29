@@ -1,15 +1,19 @@
+const signOutButton = document.getElementById('signOutButton'); //როდესაც sign out ღილაკს დააჭერს
+
 const {
     StorageService,
     ApiService
-} = window; //ყოველ ჯერზე რომ window.-ის დაწერა რომ არ მოგვიწიოს
+} = window; //ყოველ ჯერზე  window.-ის დაწერა რომ არ მოგვიწიოს
 
-const userToken = StorageService.read(window.USER_TOKEN_KEY); //ეს გადმოვიტანეთ API.js-დან
+const userToken = StorageService.read(window.USER_TOKEN_KEY); //ეს გადმოვიტანეთ services.js-დან  read(key) {
+     //   return JSON.parse(this.storage.getItem(key)); StorageService-სს ენიჭება Storage-ის მეთოდი read
+  // }
 if (!userToken) { // იმ შემთხვევაში თუ remember me არ მოიპწიჩკა :) ან წაშალა ტოკენი ლოქალ სთორიჯიდან
     navigateToIndex(); // თუ ეს ჩანაწერი არ მოიძებნება localStorage-ში მაშინვე გადადის index.html-ზე 
 }
 
 
-const signOutButton = document.getElementById('signOutButton'); //როდესაც sign out ღილაკს დააჭერს
+
 
 
 
@@ -38,7 +42,7 @@ signOutButton.addEventListener('click', () => {
 class CardBuilder {
     constructor(tagName = 'div') { //=div ანუ თუ ამ პარამეტრს მნიშვნელობა არ მიენიოჭება ის მექანიკურად დივს გაუტოლდება
         this.card = document.createElement(tagName); //მშობელი დივი
-        this.card.className = 'card mt-2 mb-2 col-4';
+        this.card.className = 'card mt-2 mb-2 col-4 p-2';
         this.card.style.width = '18rem';
 
         this.cardBody = null; //მშობელი დივის შვილობილი დივები
@@ -48,8 +52,9 @@ class CardBuilder {
         this.cardLink = null;
     };
     addImage(src) {
-        this.cardImage = document.createElement('img')
-        this.cardImage.className = 'card-img-top';
+        this.cardImage = document.createElement('img');
+        this.cardImage.className = 'card-img-top img-thumbnail';
+        this.cardImage.style.cursor = 'pointer'; //როდესაც იმიჯზე მიიტან კურსორს ის თითით შეიცვლება.
         this.cardImage.setAttribute('src', src);
         this.card.appendChild(this.cardImage);
 
@@ -68,7 +73,7 @@ class CardBuilder {
 
     addCardTitle(title) {
         if (!this.cardBody) {
-            this.addCardBody()
+            this.addCardBody();
         }
         this.cardTitle = document.createElement('h5');
         this.cardTitle.textContent = title;
@@ -95,11 +100,11 @@ class CardBuilder {
     }
 
 
-}
+};
 
-const cardList = document.getElementById('cardList');
+// const cardList = document.getElementById('cardList');
 
-const card = new CardBuilder('div');
+// const card = new CardBuilder('div');
 
 
 
@@ -121,11 +126,11 @@ const card = new CardBuilder('div');
     // const card = new CardBuilder('div');
 
     response.data.forEach((user) => {
-        const card = new CardBuilder();
+        const card = new CardBuilder(); //შევქმენით ახალი ცვლადი და გავუტოლეთ CardBuilder ფუნქციას
         card
             .addCardTitle(`${user.first_name}${user.last_name}`)
             .addImage(user.avatar)
-            .addCardText(user.email);
+            .addCardText(user.email); //CardBuilder ფუნქციის მეთოდებს მივანიჭეთ პარამეტრები
   
         cardList.appendChild(card.render());
   
@@ -145,4 +150,3 @@ const card = new CardBuilder('div');
 //     .addCardText("hello");
 
 
-cardList.appendChild(card.render());

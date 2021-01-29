@@ -20,11 +20,12 @@ class API {
     }
 
     async login(data) { //3. ლოგინის ნაწილზე მზრუნველი ფუნქცია. პარამეტრებში ვუთითებთ იმას რაც login-ისთვის გვჭირდება ასევე ამავე ფუნქციაში ვსაზღვრავთ fetchRequest ფუნქციის პარამეტრებს (params, options = {})-ს რათა აქვე გამოვიძახოთ ეს ფუნქცია. მესამე პარამეტრს(callback) ვიძახებთ მხოლოდ მაშინ როდესაც რეზულტატი მოგვივა*. ეს ტოკენთანაა კავშირში  4. -- ლოგინჯს-ში
-     const request = this.buildRequest('login', data)
-        //ამ ფუნქციაშიცც განვსაზღვრეთ params და options რომ fetchRequest ფუნქციაში(fetch-ის ბილდერ ფუნქციაში) ჩავსვათ
+     
+        //ამ ფუნქციაშიცც განვსაზღვრეთ params და options buildRequest-ის დახმარებით რომ fetchRequest ფუნქციაში(fetch-ის ბილდერ ფუნქციაში) ჩავსვათ
 
         try {
-            const result = await this.fetchRequest(request.params, request.options) // რახან request-ს გადაცემული buildRequest ფუნქციიდან ორი მეთოდი აქვს(იმის პარამეტრები) ამიტომ ვწერთ .params და .options. აქვე ვიძახებთ fetchRequest ფუნქციას და ვაწერთ .then-ებს ისე როგორც fetch-ის წესია 
+            const request = this.buildRequest('login', data);
+            const result = await this.fetchRequest(request.params, request.options); // რახან request-ს გადაცემული buildRequest ფუნქციიდან ორი მეთოდი აქვს(იმის პარამეტრები =  params და options = 'login', data) ამიტომ ვწერთ .params და .options. 
             //const result = await res.json() -- *ეს იქნება ჩვენი token
 
             return result;
@@ -34,7 +35,7 @@ class API {
         }
 
     }
-    async signUp(reqData) {
+    async signUp(regData) {
         // const params = {
         //     endpoint: '/register' //რასაც ვააკეთებთ იმის მიხედვით იცვლება
         // };
@@ -48,8 +49,8 @@ class API {
         //ამ ფუნქციაშიცც განვსაზღვრეთ params და options რომ fetchRequest ფუნქციაში(fetch-ის ბილდერ ფუნქციაში) ჩავსვათ
 
         try {
-            const request = this.buildRequest('register', regData);
-            const newUser = await this.fetchRequest(request.params, request.options);
+            const request = this.buildRequest('register', regData); //buildRequest ფუნქციით ავამუშავეთ პარამეტრები ამ კონკრეტული რექუესთისთვის
+            const newUser = await this.fetchRequest(request.params, request.options); // ამ კონკრეტული რექუესთით იუზერის გამომყვანი ფუნქცია
             return newUser;
 
         } catch (err) {
@@ -62,7 +63,7 @@ class API {
     async listUsers() { // ეს ფუნქცია იღებს ინფოს window.USER_TOKEN_KEY-დან რომელიც დასაწყისში განვსაზღვრეთ. რაც გადმოგვაქვს იმის შესაბამისად ვცვლით params-ს რახან მისამართში ფიგურირებს ის. ოღონდ თუ ამ ნაწილს მივადგებით მომხმარებელი უკვე ავტორიზებული უნდა იყოს. შემდეგ ამ ფუნქციას დაშბოარდ.ჯს-ში ვიყენებთ  
         const userToken = localStorage.getItem(window.USER_TOKEN_KEY); //USER_TOKEN_KEY-ის საფუძველზე ლოკალ სთორიჯიდან ვკითხულობთ ტოკენს
 
-        if (userToken) { //თუ ტოკენი არსებობს მხოლოდ იმ შემთხვევაში განვსაზღვრავთ  პარამეტრებს და რექუესთს ვაკეთებთ
+        if (userToken) { //თუ ტოკენი არსებობს (მომხმარებელი უკვე ავტორიზებული უნდა იყოს)მხოლოდ იმ შემთხვევაში განვსაზღვრავთ  პარამეტრებს და რექუესთს ვაკეთებთ
             const params = { //განვსაზღვრეთ პარამეტრები
                 endpoint: '/users'
             };
@@ -87,7 +88,7 @@ class API {
         return; //თუარადა არცარაფერი ხდება
     }
 
-    buildRequest(action, data) { // დავაგენერიროთ ის ობიექტები რომელთა გამეორებაც რამდენჯერმე გვიწევს. action მოგვცემს endpoint-ის method-ის ცვლილების საშუალებას ხოლო data ცვლილების საშუალებას
+    buildRequest(action, data) { // დავაგენერიროთ ის ობიექტები რომელთა გამეორებაც რამდენჯერმე გვიწევს. action მოგვცემს endpoint-ის method-ის ცვლილების საშუალებას ხოლო data body-ს ცვლილების საშუალებას
 
         const params = {
             endpoint: '', //რასაც action პარამეტრს ვანიჭებთ იმის მიხედვით იცვლება
@@ -107,14 +108,14 @@ class API {
             params.endpoint = '/register';
         
         } else if (action === 'listUsers') {
-            options.headers('Autorization') = 'Bearer token';
+            options.headers['Autorization'] = 'Bearer token';
         }
 
 
 
 
         if (data) {
-            options.body = this.stringify(data);
+            options.body = this.stringify(data);//*** 
         }
 
         return {
@@ -126,7 +127,7 @@ class API {
 
 
     stringify(data) {
-        return JSON.stringify(data); //ესეც დრაი პრინციპის დასაცავად
+        return JSON.stringify(data); //***ესეც დრაი პრინციპის დასაცავად
     }
 
 };
@@ -164,7 +165,7 @@ function navigateToDasboard(token) {
     // location.replace('dashboard.html');  როდესაც login წარმატებით გაიარა მომხმარებელი გადამისამართდება შემდეგ გვერდზე 
     // window.USER_AUTHED = true; //უზერის ავტორიზაციის სტატუსი არის true
     // window.USER_TOKEN = token;
-    StorageService.store(window.USER_TOKEN_KEY, token)
+    StorageService.store(window.USER_TOKEN_KEY, token);პ
     location.replace('dashboard.html'); // თუ ეს ჩანაწერი მოიძებნება localStorage-ში მაშინვე გადადის dashboard.html-ზე 
 }
 

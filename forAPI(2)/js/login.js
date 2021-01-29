@@ -1,7 +1,7 @@
 
 const loginForm = document.getElementById('loginForm'); //sign in ღილაკის id-ის მაგივრად გადმოგვაქვს ფორმის id
-const { StorageService, ApiService } = window;//ყოველ ჯერზე რომ window.-ის დაწერა რომ არ მოგვიწიოს
-const userToken = StorageService.read(window.USER_TOKEN_KEY); //ეს გადმოვიტანეთ API.js-დან window.-ის დაწერა არ მოგვიწევს
+const { StorageService, ApiService } = window;//ყოველ ჯერზე window.-ის დაწერა რომ არ მოგვიწიოს
+const userToken = StorageService.read(window.USER_TOKEN_KEY); //ეს გადმოვიტანეთ API.js-დან 
 if (userToken) { // იმ შემთხვევაში თუ remember me მოიპწიჩკა :)
     navigateToDasboard(userToken);//თუ ეს ჩანაწერი მოიძებნება localStorage-ში მაშინვე გადადის dashboard.html-ზე 
 }
@@ -25,11 +25,11 @@ const onSubmit = async (event) => { //1. ცვლადები შეიქ�
     if (inputPassword.value === '') {
         errors.push('password is missing');
     }
-    if (errors.length) {
+    if (errors.length) {  //აქ გამოგვყავს ერორის მასივი
         console.error(errors);
         return;
     }
-    //console.log('login'); 4. end
+  
 
 
     const loginData = { //ფასვორდს და იმეილს ახალ ერთ ცვლადში ვწერთ ცალცალკე რომარ ვწეროთ 

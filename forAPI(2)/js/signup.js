@@ -1,10 +1,26 @@
-const loginForm = document.getElementById('logUpForm');
+const loginForm = document.getElementById('signUpForm');
 const { StorageService, ApiService } = window;
+
+
+class Validation {
+    errors = [];
+
+    check(element) {
+        if (element) {
+            if (element.value === '') {
+                this.errors.push(`${element.name} is missing`);
+            }
+        }
+    }
+    isValid() {
+        return !!this.errors.length;
+    }
+}
 
 loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    const inputEmail = document.getElementById('inputEmail'); //1. გადმოვიტანეთ ცვლადები სამუშაო. მეორე ქმედება API.js-ში
+    const inputEmail = document.getElementById('inputEmail'); //1. გადმოვიტანეთ ცვლადები სამუშაო. 
     const inputPassword = document.getElementById('inputPassword');
     const rememberMe = document.getElementById('remember-me');
 

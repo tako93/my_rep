@@ -21,8 +21,6 @@ pagination.addEventListener('click', ({
     const {
         pageAction
     } = target.dataset;
-    // SetupPagination(symptomList, symnum, rows);
-    // PaginationButton(pageNumber, symptomList);
     console.log(pageAction);
     if (pageAction === 'nextPage') {
         if (pageNumber < 7) {
@@ -31,9 +29,7 @@ pagination.addEventListener('click', ({
         } else if (pageNumber === 7) {
             btnResult.classList.remove('disable');
             DisplaySymptoms(symptomList, hidedsymplistcontainer, rows, pageNumber);
-        } //else if (pageNumber === 1) {
-        //       symplistcontainer.classList.remove('disable');
-        // };
+        }
         symnum.textContent = `${pageNumber} of 7`
         nextSymp.textContent = `${pageNumber} of 7`
     } else if (pageAction === 'prevPage') {
@@ -143,17 +139,16 @@ btnClear.addEventListener('click', () => {
 
 //show more ღილაკების ფუნქციები. 
 
-
-
 const ICD10more = [" Markedly disharmonious attitudes and behavior, generally involving several areas of functioning, e.g. affectivity, arousal, impulse control, ways of perceiving and thinking, and style of relating to others;", "The abnormal behavior pattern is enduring, of long standing, and not limited to episodes of mental illness;",
     "The abnormal behavior pattern is pervasive and clearly maladaptive to a broad range of personal and social situations;",
     "  The above manifestations always appear during childhood or adolescence and continue into adulthood;", " The disorder leads to considerable personal distress but this may only become apparent late in its course;", "The disorder is usually, but not invariably, associated with significant problems in occupational and social performance."
 ];
 
 const clasterA = [" Cluster A personality disorders are often associated with schizophrenia: in particular, schizotypal personality disorder shares some of its hallmark symptoms with schizophrenia, e.g., acutediscomfort in close relationships, cognitive or perceptual distortions, and eccentricities of behavior. However, people diagnosed  with odd-eccentric personality disorders tend to have a greater grasp  on reality than those with schizophrenia. Patients suffering from  these disorders can be paranoid and have difficulty being understood  by others, as they often have odd or eccentric modes of speaking and  an unwillingness and inability to form and maintain close  relationships. Though their perceptions may be unusual, these  anomalies are distinguished from delusions or hallucinations as people   suffering from these would be diagnosed with other conditions. Significant evidence suggests a small proportion of people with    Cluster A personality disorders, especially schizotypal personality  disorder, have the potential to develop schizophrenia and other      psychotic disorders. These disorders also have a higher probability of   occurring among individuals whose first-degree relatives have either schizophrenia or a Cluster A personality disorder.",
-    "Paranoid personality disorder: characterized  by a pattern ofirrational suspicion and mistrust of others, interpreting motivations as malevolent.", "  Schizoid personality disorder: lack of interest  and detachment from social relationships, apathy, and restricted emotional expression.", " Schizotypal personality disorder: pattern of   extreme discomfort interacting socially, and distorted cognition and perceptions.`"]
+    "Paranoid personality disorder: characterized  by a pattern ofirrational suspicion and mistrust of others, interpreting motivations as malevolent.", "  Schizoid personality disorder: lack of interest  and detachment from social relationships, apathy, and restricted emotional expression.", " Schizotypal personality disorder: pattern of   extreme discomfort interacting socially, and distorted cognition and perceptions.`"
+]
 
-const clasterB =["Antisocial personality disorder: pervasive pattern of disregard for and violation of the rights of others, lack of empathy, bloated self-image, manipulative and impulsive behavior.", " Borderline personality disorder: pervasive pattern of abrupt mood swings, instability in relationships, self-image, identity, behavior and affect, often leading to self-harm and impulsivity.", "Histrionic personality disorder: pervasive pattern of attention-seeking behavior and excessive emotions.", "Narcissistic personality disorder: pervasive pattern of grandiosity, need for admiration, and a perceived or real lack of empathy. In a more severe expression, narcissistic personality disorder may show evidence of paranoia, aggression, psychopathy, and sadistic personality disorder, which is known as malignant narcissism"]
+const clasterB = ["Antisocial personality disorder: pervasive pattern of disregard for and violation of the rights of others, lack of empathy, bloated self-image, manipulative and impulsive behavior.", " Borderline personality disorder: pervasive pattern of abrupt mood swings, instability in relationships, self-image, identity, behavior and affect, often leading to self-harm and impulsivity.", "Histrionic personality disorder: pervasive pattern of attention-seeking behavior and excessive emotions.", "Narcissistic personality disorder: pervasive pattern of grandiosity, need for admiration, and a perceived or real lack of empathy. In a more severe expression, narcissistic personality disorder may show evidence of paranoia, aggression, psychopathy, and sadistic personality disorder, which is known as malignant narcissism"]
 
 const clasterC = [" Avoidant personality disorder: Avoidant personality disorder:", "Dependent personality disorder: pervasive psychological need to be cared for by other people.", "  Obsessive-compulsive personality disorder: characterized by rigid conformity to rules, perfectionism, and control to the point of satisfaction and exclusion of leisurely activities and friendships (distinct from obsessive-compulsive disorder)."]
 
@@ -161,31 +156,30 @@ const clasterC = [" Avoidant personality disorder: Avoidant personality disorder
 
 //რამოდენიმე showmore ღილაკის მაგენერირებელი ფუნქცია
 let showmore = 0; //if-ის შესაქმნელად გამოყენებული დამატებითი ცვლადი, რომელიც დაფარული ტექსტის გამოჩენაში გვეხმარება. ფუნქციაში მისი მნიშვნელობა იცვლება, რაც თავის მხრივ ღილაკის ტექსტს ცვლის და დაფარულს აჩენს ან პირიქით
-function show(List, showmoreSelector, showbtnSelector) {
 
+function show(List, showmoreSelector, showbtnSelector) {
+    let section = document.getElementById(showmoreSelector);
+    let showBtn = document.getElementById(showbtnSelector);
+    section.innerHTML = null;
     if (!showmore) {
         for (let i = 0; i < List.length; i++) {
-
-            document.getElementById(showmoreSelector).style.display = 'block';
-            document.getElementById(showbtnSelector).innerHTML = 'show less';
+            section.style.display = 'block';
+            showBtn.innerHTML = 'show less';
             let list_element = document.createElement('ul');
-
-            let section = document.getElementById(showmoreSelector);
             section.appendChild(list_element);
 
             let li = document.createElement('li');
             li.appendChild(document.createTextNode(List[i]))
 
             list_element.appendChild(li);
-            showmore = 1;
-        }
+            showmore = 1;  
+        };
     } else {
-        document.getElementById(showmoreSelector).style.display = 'none';
-        document.getElementById(showbtnSelector).innerHTML = 'show more';
-        showmore = 0;
+        section.style.display = 'none';
+        showBtn.innerHTML = 'show more';
+        showmore = 0;   
     };
-
-}
+};
 
 // I btn
 const showbtn = document.getElementById('showbtn');
@@ -193,7 +187,8 @@ showbtn.addEventListener('click', show.bind(this, ICD10more, 'showmore', 'showbt
 
 // II bnt
 
-    let showmore2 = 0;//if-ის შესაქმნელად გამოყენებული დამატებითი ცვლადი, რომელიც დაფარული ტექსტის გამოჩენაში გვეხმარება. ფუნქციაში მისი მნიშვნელობა იცვლება, რაც თავის მხრივ ღილაკის ტექსტს ცვლის და დაფარულს აჩენს ან პირიქით
+let showmore2 = 0;
+
 function showDSM5() {
     if (!showmore2) {
         document.getElementById('DSM-5showmore').style.display = 'block';
@@ -206,17 +201,17 @@ function showDSM5() {
     };
 };
 
-const DSM5showbtn = document.getElementById('DSM-5showbtn'); 
+const DSM5showbtn = document.getElementById('DSM-5showbtn');
 DSM5showbtn.addEventListener('click', showDSM5);
 
 // III btn
-const showBtnForA = document.getElementById('showbtnA'); 
+const showBtnForA = document.getElementById('showbtnA');
 showBtnForA.addEventListener('click', show.bind(this, clasterA, 'A', 'showbtnA'));
 
 // IV btn
-const showBtnForB = document.getElementById('showbtnB'); 
+const showBtnForB = document.getElementById('showbtnB');
 showBtnForB.addEventListener('click', show.bind(this, clasterB, 'B', 'showbtnB'));
 
 // V btn
-const showBtnForC = document.getElementById('showbtnC'); 
+const showBtnForC = document.getElementById('showbtnC');
 showBtnForC.addEventListener('click', show.bind(this, clasterC, 'C', 'showbtnC'));

@@ -15,15 +15,6 @@ if (!userToken) { // იმ შემთხვევაში თუ remember me
 
 
 
-
-
-
-
-// const container = document.querySelector('.container');
-// container.classList.remove('invisible');
-
-
-
 signOutButton.addEventListener('click', () => {
     StorageService.delete(window.USER_TOKEN_KEY); //ლოქალიდან მოგვეხსნება ტოკენი და
     navigateToIndex(); //გადადის ინდექსის გვერდზე
@@ -50,16 +41,16 @@ class CardBuilder {
         this.cardImage = null;
         this.cardText = null;
         this.cardLink = null;
-    };
+    }; //1.ჯერ კონსტრუქტორში შევქმენით ყველაფერი რისი დამატებაც გვინდა ქარდისთვის. შემდეგ 
     addImage(src) {
-        this.cardImage = document.createElement('img');
+        this.cardImage = document.createElement('img'); //2. ყველა ამ ელემენტს ვსაზღვრავთ და ვქმნით 
         this.cardImage.className = 'card-img-top img-thumbnail';
         this.cardImage.style.cursor = 'pointer'; //როდესაც იმიჯზე მიიტან კურსორს ის თითით შეიცვლება.
         this.cardImage.setAttribute('src', src);
-        this.card.appendChild(this.cardImage);
+        this.card.appendChild(this.cardImage); //3.ვაბამთ მშობელს
 
 
-        return this; //მიმდინარე ობიექტის დაბრუნება ანუ ამ ფუნქციით ნაგენერირები ობიექტის დაბრუნება
+        return this; //4.მიმდინარე ობიექტის დაბრუნება ანუ ამ ფუნქციით ნაგენერირები ობიექტის დაბრუნება
     }
 
 

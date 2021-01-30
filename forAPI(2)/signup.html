@@ -40,10 +40,10 @@
         <label for="inputEmail" class="sr-only">Email address</label>
         <input
           type="email"
+          name="email"
           id="inputEmail"
           class="form-control"
           placeholder="Email address"
-          required
           value="eve.holt@reqres.in"
           autofocus
           autocomplete="email"
@@ -51,13 +51,14 @@
         <label for="inputPassword" class="sr-only">Password</label>
         <input
           type="password"
+          name="password"  
           id="inputPassword"
           class="form-control"
           placeholder="Password"
           value="cityslicka"
-          required
+       
           autocomplete="current-password"
-        />
+        /><!-- ბექენდში name(key) - value pair-ად ბრუნდება ინფუთიდან -->
         <div class="checkbox mb-3">
           <label>
             <input type="checkbox" value="remember-me" id="remember-me" />

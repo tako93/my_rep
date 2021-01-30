@@ -19,6 +19,10 @@ class API {
 
     }
 
+
+    //კონსტრუქტორი ფუნქციის პარამეტრებში ვწერთ იმას რაც თითოეულ შემთხვევაში ფუნქციის ტანში იწერება properties
+
+
     async login(data) { //3. ლოგინის ნაწილზე მზრუნველი ფუნქცია. პარამეტრებში ვუთითებთ იმას რაც login-ისთვის გვჭირდება ასევე ამავე ფუნქციაში ვსაზღვრავთ fetchRequest ფუნქციის პარამეტრებს (params, options = {})-ს რათა აქვე გამოვიძახოთ ეს ფუნქცია. მესამე პარამეტრს(callback) ვიძახებთ მხოლოდ მაშინ როდესაც რეზულტატი მოგვივა*. ეს ტოკენთანაა კავშირში  4. -- ლოგინჯს-ში
      
         //ამ ფუნქციაშიცც განვსაზღვრეთ params და options buildRequest-ის დახმარებით რომ fetchRequest ფუნქციაში(fetch-ის ბილდერ ფუნქციაში) ჩავსვათ
@@ -165,7 +169,7 @@ function navigateToDasboard(token) {
     // location.replace('dashboard.html');  როდესაც login წარმატებით გაიარა მომხმარებელი გადამისამართდება შემდეგ გვერდზე 
     // window.USER_AUTHED = true; //უზერის ავტორიზაციის სტატუსი არის true
     // window.USER_TOKEN = token;
-    StorageService.store(window.USER_TOKEN_KEY, token);პ
+    StorageService.store(window.USER_TOKEN_KEY, token);
     location.replace('dashboard.html'); // თუ ეს ჩანაწერი მოიძებნება localStorage-ში მაშინვე გადადის dashboard.html-ზე 
 }
 

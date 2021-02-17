@@ -1,179 +1,338 @@
-window.USER_TOKEN_KEY = 'user_token';
+window.USER_TOKEN_KEY = "application:user_token";
+window.CURRENT_USER_KEY = "application:current_user";
 
 class API {
-    baseUrl = 'https://reqres.in/api'; // 2. ბაზისი url data-სთან სამუშაოდ
-    // static = ''; მეთოდი რომელიც ნიშნავს რომ ის ყოველთვის ხელმისაწვდომი იქნება მიუხედავად იმისა ობიექტის შექმნას const .. = new ჩანაწერით მოვახდენთ თუ პირდაპირ API.-ით. ამ ბოლოს გაამოყენების საშუალება გვეძლევა. 
+  baseUrl = "https://reqres.in/api";
+  // TODO implement static method
 
-    async fetchRequest(params, options = {}) { //ესაა ფეჩის ბილდერი რომელიც პარამეტრებით კონფიგურირდება. login ფუნქციაში გამოსაძახებელი ფუნქცია. options სადაც ვწერთ მეთოდს და ჰედერს ასევე ბოდის რაც დაგვჭირდება fetch-ისთვის. 
+  constructor() {
+    this.userToken = localStorage.getItem(window.USER_TOKEN_KEY);
+  }
 
-        try {
-            const res = await fetch(`${this.baseUrl}${params.endpoint}`, options) // params - ის რასაც ვახორციელებთ(ამ შემთხვევაში login) და მისამართში იწერება endpoint - ჩვენ ვქმნით   // აქვე ვიძახებთ fetchRequest ფუნქციას და ვაწერთ .then-ებს ისე როგორც fetch-ის წესია 
-            const result = await res.json() // -- *ეს იქნება ჩვენი token
+  setUserId(userId) {
+    this.userId = userId;
+  }
 
-            return result;
+  setUserToken(userToken) {
+    this.userToken = userToken;
+  }
 
-        } catch (err) {
-            console.error('[API.login]', err);
-            return;
-        }
+  async fetchRequest(params, options = {}) {
+    try {
+      const res = await fetch(`${this.baseUrl}${params.endpoint}`, options);
+      const result = await res.json();
 
+      return result;
+    } catch (err) {
+      console.error("[API.login]", err);
+      return;
+    }
+  }
+
+  async login(data) {
+    try {
+      const request = this.buildRequest("login", data);
+      const result = await this.fetchRequest(request.params, request.options);
+
+      return result;
+    } catch (err) {
+      console.error("[API.login]", err);
+    }
+  }
+
+  async signUp(regData) {
+    try {
+      const request = this.buildRequest("register", regData);
+      const newUser = await this.fetchRequest(request.params, request.options);
+      return newUser;
+    } catch (err) {}
+  }
+
+  async listUsers(query) {
+    if (this.userToken) {
+      try {
+        const request = this.buildRequest("listUsers", query);
+        const result = await this.fetchRequest(request.params, request.options);
+
+        return result;
+      } catch (err) {
+        console.error("[API.login]", err);
+      }
     }
 
+    return;
+  }
 
-    //კონსტრუქტორი ფუნქციის პარამეტრებში ვწერთ იმას რაც თითოეულ შემთხვევაში ფუნქციის ტანში იწერება properties
+  async getUser() {
+    if (this.userToken && this.userId) {
+      try {
+        const request = this.buildRequest("getUser", {
+          userId: this.userId,
+        });
 
-
-    async login(data) { //3. ლოგინის ნაწილზე მზრუნველი ფუნქცია. პარამეტრებში ვუთითებთ იმას რაც login-ისთვის გვჭირდება ასევე ამავე ფუნქციაში ვსაზღვრავთ fetchRequest ფუნქციის პარამეტრებს (params, options = {})-ს რათა აქვე გამოვიძახოთ ეს ფუნქცია. მესამე პარამეტრს(callback) ვიძახებთ მხოლოდ მაშინ როდესაც რეზულტატი მოგვივა*. ეს ტოკენთანაა კავშირში  4. -- ლოგინჯს-ში
-     
-        //ამ ფუნქციაშიცც განვსაზღვრეთ params და options buildRequest-ის დახმარებით რომ fetchRequest ფუნქციაში(fetch-ის ბილდერ ფუნქციაში) ჩავსვათ
-
-        try {
-            const request = this.buildRequest('login', data);
-            const result = await this.fetchRequest(request.params, request.options); // რახან request-ს გადაცემული buildRequest ფუნქციიდან ორი მეთოდი აქვს(იმის პარამეტრები =  params და options = 'login', data) ამიტომ ვწერთ .params და .options. 
-            //const result = await res.json() -- *ეს იქნება ჩვენი token
-
-            return result;
-
-        } catch (err) {
-            console.error('[API.login]', err);
-        }
-
+        const response = await this.fetchRequest(
+          request.params,
+          request.options
+        );
+        return response;
+      } catch (err) {
+        console.error(err);
+      }
     }
-    async signUp(regData) {
-        // const params = {
-        //     endpoint: '/register' //რასაც ვააკეთებთ იმის მიხედვით იცვლება
-        // };
-        // const options = {
-        //     method: 'POST', //მეთოდი რომელიც ამჯერად POST-ია
-        //     headers: {
-        //         'Content-Type': 'application/json', //ჰედერსი 
-        //     },
-        //     body: this.stringify(reqData) //აქ მაილისა და ფასვორდის მაგივრად პარამეტრს ვანიჭებთ და ის ობიექტად გარდაიქმნება
-        // };
-        //ამ ფუნქციაშიცც განვსაზღვრეთ params და options რომ fetchRequest ფუნქციაში(fetch-ის ბილდერ ფუნქციაში) ჩავსვათ
+  }
 
-        try {
-            const request = this.buildRequest('register', regData); //buildRequest ფუნქციით ავამუშავეთ პარამეტრები ამ კონკრეტული რექუესთისთვის
-            const newUser = await this.fetchRequest(request.params, request.options); // ამ კონკრეტული რექუესთით იუზერის გამომყვანი ფუნქცია
-            return newUser;
+  async listResources(query) {
+    if (this.userToken && this.userId) {
+      try {
+        const request = this.buildRequest("listResources", query);
 
-        } catch (err) {
-
-        }
-
+        const response = await this.fetchRequest(
+          request.params,
+          request.options
+        );
+        return response;
+      } catch (err) {
+        console.error(err);
+      }
     }
+  }
 
-
-    async listUsers() { // ეს ფუნქცია იღებს ინფოს window.USER_TOKEN_KEY-დან რომელიც დასაწყისში განვსაზღვრეთ. რაც გადმოგვაქვს იმის შესაბამისად ვცვლით params-ს რახან მისამართში ფიგურირებს ის. ოღონდ თუ ამ ნაწილს მივადგებით მომხმარებელი უკვე ავტორიზებული უნდა იყოს. შემდეგ ამ ფუნქციას დაშბოარდ.ჯს-ში ვიყენებთ  
-        const userToken = localStorage.getItem(window.USER_TOKEN_KEY); //USER_TOKEN_KEY-ის საფუძველზე ლოკალ სთორიჯიდან ვკითხულობთ ტოკენს
-
-        if (userToken) { //თუ ტოკენი არსებობს (მომხმარებელი უკვე ავტორიზებული უნდა იყოს)მხოლოდ იმ შემთხვევაში განვსაზღვრავთ  პარამეტრებს და რექუესთს ვაკეთებთ
-            const params = { //განვსაზღვრეთ პარამეტრები
-                endpoint: '/users'
-            };
-            const options = {
-                method: 'GET', //მეთოდი რომელიც ამჯერად GET-ია
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${userToken}` //ჰედერში ტოკენი უნდა გავაყოლოთ ( თუ ამ ნაწილს მივადგებით მომხმარებელი უკვე ავტორიზებული უნდა იყოს)
-                },
-
-            };
-            try { //გავაკეთეთ რექუესთი
-                const result = await this.fetchRequest(params, options) //აქვე ვიძახებთ fetchRequest ფუნქციას და ვაწერთ .then-ებს ისე როგორც fetch-ის წესია 
-
-                return result;
-
-            } catch (err) {
-                console.error('[API.login]', err);
-            }
-
-        }
-        return; //თუარადა არცარაფერი ხდება
-    }
-
-    buildRequest(action, data) { // დავაგენერიროთ ის ობიექტები რომელთა გამეორებაც რამდენჯერმე გვიწევს. action მოგვცემს endpoint-ის method-ის ცვლილების საშუალებას ხოლო data body-ს ცვლილების საშუალებას
-
-        const params = {
-            endpoint: '', //რასაც action პარამეტრს ვანიჭებთ იმის მიხედვით იცვლება
-        };
-        const options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json', //ჰედერსი 
-            },
-            body: null, //აქ მაილისა და ფასვორდის მაგივრად პარამეტრს ვანიჭებთ და ის ობიექტად გარდაიქმნება
-        };
-
-
-        if (action === 'login') {
-            params.endpoint = '/login';
-        } else if (action === 'register') {
-            params.endpoint = '/register';
-        
-        } else if (action === 'listUsers') {
-            options.headers['Autorization'] = 'Bearer token';
-        }
-
-
-
-
-        if (data) {
-            options.body = this.stringify(data);//*** 
-        }
-
-        return {
-            params,
-            options,
-        };
-
+  buildRequest(action, data) {
+    const params = {
+      endpoint: "",
     };
 
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: null,
+    };
 
-    stringify(data) {
-        return JSON.stringify(data); //***ესეც დრაი პრინციპის დასაცავად
+    if (action === "login") {
+      params.endpoint = "/login";
+    } else if (action === "register") {
+      params.endpoint = "/register";
+    } else if (action === "listUsers") {
+      params.endpoint = "/users";
+      options.method = "GET";
+      options.headers["Authorization"] = `Bearer ${this.userToken}`;
+      params.endpoint += `?page=${data.page}`;
+    } else if (action === "getUser") {
+      params.endpoint = `/users/${data.userId}`;
+      options.method = "GET";
+      options.headers.Authorization = `Bearer ${this.userToken}`;
+    } else if (action === "listResources") {
+      params.endpoint = "/unknown";
+      options.method = "GET";
+      if (data && data.page) {
+        params.endpoint += `?page=${data.page}`;
+      }
     }
 
-};
-
-
-
-
-
-
-
-class Storage { //კონსტრუქტორი ფუნქცია არის ფუნქცია რომელიც ინიციალიზაციის მომენტში ქმნის ობიექტს
-    constructor() {
-        this.storage = localStorage;
+    if (data && options.method !== "GET") {
+      options.body = this.stringify(data);
     }
-    store(key, value) {
-        this.storage.setItem(key, JSON.stringify(value)) //ყოველ შენახვაზე სწორ ფორმატში რომ შეინახოს 
-    }
-    read(key) {
-        return JSON.parse(this.storage.getItem(key));
-    }
-    delete(key) {
-        this.storage.removeItem(key);
-    }
-    clear() {
-        this.storage.clear();
-    }
-} //ლოქალ სთორიჯთან სამუშაოდ
 
+    return {
+      params,
+      options,
+    };
+  }
 
-function navigateToIndex() {
-    location.replace('index.html'); //გადადის ინდექსის გვერდზე
+  stringify(data) {
+    return JSON.stringify(data);
+  }
+
+  testAPI() {
+    console.log("API WORKS");
+  }
 }
 
-function navigateToDasboard(token) {
-    // location.replace('dashboard.html');  როდესაც login წარმატებით გაიარა მომხმარებელი გადამისამართდება შემდეგ გვერდზე 
-    // window.USER_AUTHED = true; //უზერის ავტორიზაციის სტატუსი არის true
-    // window.USER_TOKEN = token;
-    StorageService.store(window.USER_TOKEN_KEY, token);
-    location.replace('dashboard.html'); // თუ ეს ჩანაწერი მოიძებნება localStorage-ში მაშინვე გადადის dashboard.html-ზე 
+class Storage {
+  constructor() {
+    this.storage = localStorage;
+  }
+  store(key, value) {
+    this.storage.setItem(key, JSON.stringify(value));
+  }
+  read(key) {
+    return JSON.parse(this.storage.getItem(key));
+  }
+  delete(key) {
+    this.storage.removeItem(key);
+  }
+  clear() {
+    this.storage.clear();
+  }
 }
 
+class Pagination {
+  page = 0;
+  perPage = 0;
+  total = 0;
+  totalPages = 0;
+  parentNode = null;
 
+  classDisabled = "disabled";
+  classPageItem = "page-item";
+  classPageLink = "page-link";
+  classPagination = "pagination pagination-lg";
 
-window.ApiService = new API() // აქ ქმნის თავისთავს..:) ვუკავშირდებით სხვა ჯს ფაილებს. ამ ჯავასკრიპტის ფაილის ჩატვირთვისთანავე შეიქმნება API ფროფერთი  ამიტომ მეორე ჯს ფაილში აღარ მოგვიწევს ამ ფროფერთის შექმნა არამედ იქ უკვე ამას მივწვდებით window.API-ით 
-window.StorageService = new Storage(); //ვინდოუს ფროფერთი როგორც სთორიჯი გააკეთებს იმას რომ მთლიანად აპლიკაციისთვის ანუ ჩვენი ტაბებისთვის ერთიდაიგივე სთორიჯის ობიექტი იქნება შექმნილი. როცა გვერდი ჩაიტვირთება მხოლოდ ერთხელ მოხდებაეს მოქმედება
+  nextLinkText = "Next";
+  prevLinkText = "Previous";
+
+  paginationEl = null;
+
+  listener = null;
+
+  /**
+   *
+   * @pagerData { Object }
+   * @property page: number = 1
+   * @property perPage: number = 6
+   * @property total: number =
+   * @property totalPages: number
+   */
+  constructor({
+    page = 1,
+    per_page: perPage = 6,
+    total = 0,
+    total_pages: totalPages = 0,
+  }) {
+    this.page = page;
+    this.perPage = perPage;
+    this.total = total;
+    this.totalPages = totalPages;
+
+    this.paginationEl = this.createElement("ul", this.classPagination);
+  }
+
+  appendTo(rootEl) {
+    this.parentNode = rootEl;
+    return this;
+  }
+
+  createElement(tagName, className) {
+    const el = document.createElement(tagName);
+    el.className = className;
+    return el;
+  }
+
+  createPageItem() {
+    const item = this.createElement("li", this.classPageItem);
+    return item;
+  }
+  createPageLink(text) {
+    const link = this.createElement("a", this.classPageLink);
+    link.setAttribute("href", "#");
+    link.textContent = text;
+    return link;
+  }
+
+  getLinks() {
+    const links = [];
+    const prevLi = this.createPageItem();
+    const prevLink = this.createPageLink(this.prevLinkText);
+    prevLink.dataset.page = -1;
+    prevLink.dataset.action = "previous";
+
+    prevLi.appendChild(prevLink);
+    links.push(prevLi);
+
+    for (let i = 1; i <= this.totalPages; i++) {
+      const pItem = this.createPageItem();
+      const aItem = this.createPageLink(i);
+      if (i === this.page) {
+        pItem.classList.add(this.classDisabled);
+      }
+
+      aItem.dataset.page = i;
+      aItem.dataset.action = "page";
+
+      pItem.appendChild(aItem);
+      links.push(pItem);
+    }
+
+    const nextLi = this.createPageItem();
+    const nextLink = this.createPageLink(this.nextLinkText);
+    nextLink.dataset.page = 1;
+    nextLink.dataset.action = "next";
+    nextLi.appendChild(nextLink);
+    links.push(nextLi);
+
+    if (this.page === 1) {
+      prevLi.classList.add(this.classDisabled);
+    } else if (this.page === this.totalPages) {
+      nextLi.classList.add(this.classDisabled);
+    }
+
+    return links;
+  }
+
+  handlePageChange = (event) => {
+    event.preventDefault();
+    const { target } = event;
+    const { page, action } = target.dataset;
+    if (!!page && !!action) {
+      switch (action) {
+        case "next":
+        case "previous":
+          this.page += parseInt(page);
+          break;
+        case "page":
+          this.page = parseInt(page);
+          break;
+        default:
+          return;
+      }
+    }
+    this.render();
+    this.listener({
+      page: this.page,
+      action,
+    });
+  };
+
+  initEvents() {
+    this.paginationEl.addEventListener("click", this.handlePageChange);
+  }
+
+  listen(callback) {
+    this.listener = callback;
+  }
+
+  render() {
+    this.paginationEl.innerHTML = null;
+    const links = this.getLinks();
+    links.forEach((li) => this.paginationEl.appendChild(li));
+
+    this.parentNode.appendChild(this.paginationEl);
+    this.initEvents();
+  }
+}
+
+function protectedRoute() {
+  const userToken = StorageService.read(window.USER_TOKEN_KEY);
+
+  if (!userToken) {
+    naviageToIndex();
+  }
+}
+
+function naviageToIndex() {
+  location.replace("index.html");
+}
+
+function navigateToDashboard(token) {
+  StorageService.store(window.USER_TOKEN_KEY, token);
+  location.replace("dashboard.html");
+}
+
+function naviageToProfile() {
+  location.replace("profile.html");
+}
+
+window.ApiService = new API();
+window.StorageService = new Storage();

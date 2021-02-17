@@ -6,8 +6,6 @@ if (!userToken) {// იმ შემთხვევაში თუ remember me 
 
 const signOutButton = document.getElementById('signOutButton');//როდესაც sign out ღილაკს დააჭერს
 
-// const container = document.querySelector('.container');
-// container.classList.remove('invisible');
 
 (async () => {
     const data = await window.API.listUsers(); //listUsers გვიბრუნებს ინფორმაციას. ის მოგვდის ლოქალ სთორიჯში ჩაწერილი ტოკენის საფუძველზე

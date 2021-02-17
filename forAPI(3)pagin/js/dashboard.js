@@ -5,13 +5,9 @@ const {
     ApiService
 } = window; //ყოველ ჯერზე  window.-ის დაწერა რომ არ მოგვიწიოს
 
-const userToken = StorageService.read(window.USER_TOKEN_KEY); //ეს გადმოვიტანეთ services.js-დან  read(key) {
-     //   return JSON.parse(this.storage.getItem(key)); StorageService-სს ენიჭება Storage-ის მეთოდი read
-  // }
-if (!userToken) { // იმ შემთხვევაში თუ remember me არ მოიპწიჩკა :) ან წაშალა ტოკენი ლოქალ სთორიჯიდან
-    navigateToIndex(); // თუ ეს ჩანაწერი არ მოიძებნება localStorage-ში მაშინვე გადადის index.html-ზე 
-}
+const { CURRENT_USER_KEY, USER_TOKEN_KEY } = window;
 
+protectedRoute();
 
 
 
@@ -33,7 +29,7 @@ signOutButton.addEventListener('click', () => {
 class CardBuilder {
     constructor(tagName = 'div') { //=div ანუ თუ ამ პარამეტრს მნიშვნელობა არ მიენიოჭება ის მექანიკურად დივს გაუტოლდება
         this.card = document.createElement(tagName); //მშობელი დივი
-        this.card.className = 'card mt-2 mb-2 col-4 p-2';
+        this.card.className = 'card mt-2 mb-2 col-4 p-2 ';
         this.card.style.width = '18rem';
 
         this.cardBody = null; //მშობელი დივის შვილობილი დივები
@@ -86,6 +82,19 @@ class CardBuilder {
         return this;
     }
 
+    attachData(data) { //სურათს რომ მივანიჭოთ აიდი
+        if (!this.cardImage) {
+            return;
+        }
+        for (let key of Object.keys(data)) {
+            
+            this.cardImage.dataset[key] = data[key];
+            
+            console.log(key, data[key]); //user id - ის აბსტრაქტული ზოგადი ვერსია, არ ვიცით რას დაწერს მომხმარებელი ამიტომ ზოგადი სიტყვებით ავღწერეთ ფუნქცია
+        } //-- key === userId ამ მასივის key-ები, რამდენი key-ც ექნება ამ ობიექტს იმდენჯერ დატრიალდება ეს ციკლი 
+        return this;
+    }
+
     render() {
         return this.card; //მშობელი დივის დამაბრუნებელი/გამომჩენი
     }
@@ -121,14 +130,27 @@ class CardBuilder {
         card
             .addCardTitle(`${user.first_name}${user.last_name}`)
             .addImage(user.avatar)
-            .addCardText(user.email); //CardBuilder ფუნქციის მეთოდებს მივანიჭეთ პარამეტრები
-  
+            .addCardText(user.email) //CardBuilder ფუნქციის მეთოდებს მივანიჭეთ პარამეტრები
+            .attachData({
+                id: user.id //-- ებმება ქარდს ყოველ ჯერზე როცა ის იქმნება. უფროსწორედ სურათს რადგან ქლიქი მასზეა. ამ ფუნქციით იქმნება ობიექტი 
+            });
         cardList.appendChild(card.render());
   
     });
 
 
 
+    cardList.addEventListener('click', ({target}) => {
+        if (target.tagName.toLowerCase().match('img')) { //თუ იმიჯს დაეჭირა
+            const userId = target.dataset.userId;//გამოჩნდება დაჭერილი იმიჯის დათა
+            if (userId) {
+                StorageService.store(CURRENT_USER_KEY, userId) //დავსვით ახალი სთორიჯი
+            
+                navigateToProfile();//გადასვლა მოხდებაა იმ კონკრეტული დაწკაპული იუზერის პროფილის გვერდზე
+            
+            } 
+        }
+    })
 
 })(); //ფუნქცია რომელიც თავისთავს იძახებს
 

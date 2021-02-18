@@ -1,6 +1,6 @@
  //let year = 2021; //explicit
 
- 
+
 const userName: string = "John Doe";
 // console.log(userName);
 const isAdmin: boolean = false;

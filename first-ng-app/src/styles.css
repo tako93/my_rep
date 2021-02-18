@@ -1,0 +1,20 @@
+/* You can add global styles to this file, and also import other style files */
+.container{
+    width: 760px;
+    margin: 0 auto;
+    border: dashed 2px chartreuse;
+    padding: 10px;
+}
+
+.buttons{
+    display: flex;
+    width: 100%;
+}
+
+.buttons button {
+    flex: 1;
+    padding: 10px;
+    cursor: pointer;
+}
+
+

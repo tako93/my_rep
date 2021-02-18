@@ -1,0 +1,10 @@
+<div class="container">
+ <h1>Tako's Angular try</h1>  <!-- ფუნქცია = ბაინდერი = ედივენთლისენერი -->
+ <h2 (click)="onClick($event)" >{{ counter }}</h2>
+ <p class="buttons">
+   <button (click)="onIncrement(1)" >+</button>
+   <button (click)="onDecrement(-1)" >-</button>
+ </p>
+  <h2 class="title" >{{ title }}</h2> 
+  <h3>{{ number1 }}+{{ counter }}={{ number1 + counter }}</h3>
+</div>

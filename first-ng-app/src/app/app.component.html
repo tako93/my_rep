@@ -7,4 +7,13 @@
  </p>
   <h2 class="title" >{{ title }}</h2> 
   <h3>{{ number1 }}+{{ counter }}={{ number1 + counter }}</h3>
+
+  <div *ngIf="currentTodo" >
+    <h3>Todo Loaded</h3>
+    <p> <strong>Todo id: </strong> {{ currentTodo.id }}</p>
+    <p>  <strong>Todo title:</strong>  {{ currentTodo.id }}</p>
+    <p>  <strong>Todo  completed:</strong>  {{ currentTodo.completed }}</p>
+    <p>  <strong>Todo userId:</strong>  {{ currentTodo.userId }}</p>
+
+  </div>
 </div>
